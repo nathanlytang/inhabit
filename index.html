@@ -53,15 +53,15 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>To Do</title>
-    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+   <meta charset="UTF-8">
+   <title>To Do</title>
+   <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 
 <body>
-    <div id = "window">
+   <div id="window">
 
-        <!-- <div class="button" id="min-button">
+      <!-- <div class="button" id="min-button">
             <span>&#xE921;</span>
             </div>
             <div class="button" id="max-button">
@@ -74,31 +74,32 @@
             <span>&#xE8BB;</span>
         </div> -->
 
-        <div id="title" style="position: relative; text-align: center; -webkit-app-region: drag">
-            <img src="undraw_master_plan_95wa (4).png" style="width: 100%;">
-            
-            <div class="bottom-left" style="position: absolute; bottom: 8px; left: 16px;;">
-                <h1 style="color: white;">To Do</h1>
+      <div id="title" style="position: relative; text-align: center; -webkit-app-region: drag">
+         <img src="images\undraw_master_plan_95wa (4).png" style="width: 100%;">
 
-            </div>
-        </div>
+         <div class="bottom-left" style="position: absolute; bottom: 8px; left: 16px;;">
+            <h1 style="color: white;">To Do</h1>
 
-        <div id = "edit" class = "form-group">
-            <button class = "btn btn-primary" id = "add_item">Add</button>
-            <button class = "btn btn-primary" id = "delete_item">Delete</button>
-        </div>
+         </div>
+      </div>
 
-        <div id = "todo_list">
-            <table id = "todo_table">
-                <tr>
-                    <th class = "col-xs-2"></th>
-                    <th class = "col-xs-6"></th>
-                </tr>
-            </table>
-        </div>
+      <div id="edit" class="form-group">
+         <button type="button">+</button>
+         <input type="note" class="form-control" id="input-note" placeholder="New Note..."
+            style="position: absolute; bottom: 0px; width: 80%; border: none; border-top: 2px;">
+      </div>
 
-        <script src = "./view.js"></script>
-    </div>
+      <div id=" todo_list">
+         <table id="todo_table">
+            <tr>
+               <th class="col-xs-2"></th>
+               <th class="col-xs-6"></th>
+            </tr>
+         </table>
+      </div>
+
+      <script src="./view.js"></script>
+   </div>
 </body>
 
 </html>

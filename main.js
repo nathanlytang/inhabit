@@ -6,7 +6,7 @@ let win
 
 function createWindow() {
 //    win = new BrowserWindow({width: 400, height: 800, })
-   win = new BrowserWindow({width: 400, height: 800, frame: false})
+   win = new BrowserWindow({width: 300, height: 600, frame: false})
 //    win.setMenuBarVisibility(false)
    win.loadURL(url.format ({
       pathname: path.join(__dirname, 'index.html'),
