@@ -42,3 +42,37 @@
 // }
 
 // loadAndDisplayContacts()
+var date = new Date()
+
+var monthDict = {
+    0: "January",
+    1: "February",
+    2: "March",
+    3: "April",
+    4: "May",
+    5: "June",
+    6: "July",
+    7: "August",
+    8: "September",
+    9: "October",
+    10: "November",
+    11: "December",
+}
+
+var dayDict = {
+    0: "Sun",
+    1: "Mon",
+    2: "Tues",
+    3: "Wed",
+    4: "Thurs",
+    5: "Fri",
+    6: "Sat",
+}
+
+window.onload = function(){
+    var date_string_day = date.getDay()
+    var date_string_month = date.getMonth()
+
+    var date_string = (dayDict[date_string_day] + ' ' + date.getDate() + ' ' + monthDict[date_string_month])
+    document.getElementById('date').innerHTML = date_string
+}
