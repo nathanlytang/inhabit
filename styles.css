@@ -1,0 +1,31 @@
+#background-image {
+    width: 100%;
+}
+
+#title {
+    position: relative;
+    text-align: center;
+    -webkit-app-region: drag;
+}
+
+#title-label {
+    position: absolute;
+    bottom: 25px;
+    left: 16px;
+    color: white;
+}
+
+#date {
+    position: absolute;
+    color: white;
+    bottom: 13px;
+    left: 20px;
+}
+
+#input-note {
+    position: absolute;
+    bottom: 0px;
+    width: 80%;
+    border: none;
+    border-top: 2px;
+}
