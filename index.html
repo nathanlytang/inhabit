@@ -56,10 +56,11 @@
    <meta charset="UTF-8">
    <title>To Do</title>
    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-   <div id="window">
+   <div id="window" style="height: 100%;">
 
       <!-- <div class="button" id="min-button">
             <span>&#xE921;</span>
@@ -74,29 +75,29 @@
             <span>&#xE8BB;</span>
         </div> -->
 
-      <div id="title" style="position: relative; text-align: center; -webkit-app-region: drag">
-         <img src="images\undraw_master_plan_95wa (4).png" style="width: 100%;">
+      <div id="title">
+         <img src="images\undraw_master_plan_95wa (4).png" id="background-image">
 
-         <div class="bottom-left" style="position: absolute; bottom: 8px; left: 16px;;">
-            <h1 style="color: white;">To Do</h1>
+         <div class="bottom-left">
+            <h1 id="title-label">To Do</h1>
+            <p1 id="date"></p1>
 
          </div>
       </div>
 
       <div id="edit" class="form-group">
-         <button type="button">+</button>
-         <input type="note" class="form-control" id="input-note" placeholder="New Note..."
-            style="position: absolute; bottom: 0px; width: 80%; border: none; border-top: 2px;">
+         <!-- <button type="button">+</button> -->
+         <input type="note" class="form-control" id="input-note" placeholder="New Note...">
       </div>
 
-      <div id=" todo_list">
+      <!-- <div id=" todo_list">
          <table id="todo_table">
             <tr>
                <th class="col-xs-2"></th>
                <th class="col-xs-6"></th>
             </tr>
          </table>
-      </div>
+      </div> -->
 
       <script src="./view.js"></script>
    </div>
