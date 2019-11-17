@@ -7,13 +7,14 @@ let win
 function createWindow() {
 //    win = new BrowserWindow({width: 400, height: 800, })
    win = new BrowserWindow({
-       width: 300, 
-       height: 600, 
+       width: 350, 
+       height: 700, 
        frame: false, 
        transparent: true,
        fullscreen: false,
        webPreferences: {
-           devTools: false
+           devTools: false,
+           nodeIntegration: true
        }
     })
     win.setMenu(null)
