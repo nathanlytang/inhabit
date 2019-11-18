@@ -44,7 +44,7 @@
 
 const remote = require('electron').remote;
 let fs = require('fs')
-let filename = "todo"
+let filename = "todofile"
 
 function getDateElement() {
     var date = new Date();
@@ -78,6 +78,8 @@ function getDateElement() {
     return date_string;
 }
 
+// Window buttons
+
 function handleWindowControls() {
     let win = remote.getCurrentWindow();
     document.getElementById('min-button').addEventListener("click", event => {
@@ -87,6 +89,8 @@ function handleWindowControls() {
         win.close();
     });
 }
+
+// File System List and Classes
 
 class list_items {
     constructor(item_name, day_to_complete) {
@@ -102,14 +106,30 @@ class list_items {
     }
 }
 
+// Read file and get data
+
+function getData() {
+    if(fs.existsSync(filename)) {
+        let data = fs.readFileSync(filename, 'utf8').split('\n')
+        return data    
+     } else {
+        console.log("File Doesn\'t Exist. Creating new file.")
+        fs.writeFile(filename, '', (err) => {
+           if(err)
+              console.log(err)
+        })
+        return null
+    }
+}
+
 function loadAndDisplayTodo() {  
    
    //Check if file exists
    if(fs.existsSync(filename)) {
       let data = fs.readFileSync(filename, 'utf8').split('\n')
       
-      data.forEach((contact, index) => {
-         let [ item_name, day_to_complete ] = contact.split(',')
+      data.forEach((todo_item, index) => {
+         let [ item_name, day_to_complete ] = todo_item.split(',')
          addEntry(item_name, day_to_complete)
       })
    
@@ -122,7 +142,30 @@ function loadAndDisplayTodo() {
    }
 }
 
+function addEntry(item_name, day_to_complete) {
+   if(item_name && day_to_complete) {
+      let updateString = '<tr><td>'+ item_name +'</td><td>' + day_to_complete +'</td></tr>'
+      $('#todo_table').append(updateString)
+   }
+}
+
+// Detect Enter on Input Field
+
+document.getElementById('input-note-field').onkeypress = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+        let note = $('input-note-field').val()
+        fs.appendFile(note + '\n')
+    }
+  }
+
+
+
+// Main
+
 window.onload = function(){
-date_string = getDateElement()
-    handleWindowControls()
+    date_string = getDateElement()
+        handleWindowControls()
+    loadAndDisplayTodo()
 }
