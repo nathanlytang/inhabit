@@ -17,7 +17,7 @@ body {
     top: 0;
     right: 0;
     font-family: "Segoe MDL2 Assets";
-    font-size: 20px;
+    font-size: 15px;
     -webkit-app-region: no-drag;
 }
 
@@ -89,7 +89,7 @@ body {
 
 /* Input form */
 
-#input-note {
+#input-note-field {
     position: absolute;
     bottom: 0px;
     width: 80%;
