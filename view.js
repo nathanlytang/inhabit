@@ -21,16 +21,16 @@
 // }
 
 // function loadAndDisplayContacts() {  
-   
+
 //    //Check if file exists
 //    if(fs.existsSync(filename)) {
 //       let data = fs.readFileSync(filename, 'utf8').split('\n')
-      
+
 //       data.forEach((contact, index) => {
 //          let [ name, email ] = contact.split(',')
 //          addEntry(name, email)
 //       })
-   
+
 //    } else {
 //       console.log("File Doesn\'t Exist. Creating new file.")
 //       fs.writeFile(filename, '', (err) => {
@@ -110,13 +110,13 @@ class list_items {
 // Read file and get data
 
 function getData() {
-    if(fs.existsSync(filename)) {
+    if (fs.existsSync(filename)) {
         let data = fs.readFileSync(filename, 'utf8').split('\n')
-        return data    
+        return data
     } else {
         console.log("File Doesn\'t Exist. Creating new file.")
         fs.writeFile(filename, '', (err) => {
-            if(err)
+            if (err)
                 console.log(err)
         })
         return null
@@ -130,23 +130,23 @@ function printData(data) {
         // $('#todo-table').append(updateString)
         // $('#todo-table').append(index)
         table.innerHTML = index
-        console.log(index + 'hahah hi   ')
+        console.log(index)
     }
     // document.location.reload(true)
 }
 
 // function loadAndDisplayTodo() {  
-   
+
 //    //Check if file exists
 //     if(fs.existsSync(filename)) {
 //         let data = fs.readFileSync(filename, 'utf8').split('\n')
 //         console.log(data)
-      
+
 //         data.forEach((todo_item, index) => {
 //             let [ item_name, day_to_complete ] = todo_item.split(',')
 //             addEntry(item_name, day_to_complete)
 //         })
-   
+
 //     } else {
 //         console.log("File Doesn\'t Exist. Creating new file.")
 //         fs.writeFile(filename, '', (err) => {
@@ -159,8 +159,8 @@ function printData(data) {
 // Add data entry
 
 function addEntry(item_name, day_to_complete) {
-    if(item_name && day_to_complete) {
-        let updateString = '<tr><td>'+ item_name +'</td><td>' + day_to_complete +'</td></tr>'
+    if (item_name && day_to_complete) {
+        let updateString = '<tr><td>' + item_name + '</td><td>' + day_to_complete + '</td></tr>'
         $('#todo_table').append(updateString)
         console.log(updateString)
     }
@@ -168,17 +168,21 @@ function addEntry(item_name, day_to_complete) {
 
 // Detect Enter on Input Field
 
-document.getElementById('input-note-field').onkeypress = function(e){
+document.getElementById('input-note-field').onkeypress = function (e) {
     if (!e) e = window.event;
-    var keyCode = e.keyCode || e.which;
-    if (keyCode == '13'){
+    var keyCode = e.code || e.which; // User press enter
+    if (keyCode == 'Enter') {
         var note = document.getElementById('input-note-field').value
-        // let note = $('#input-note-field').val()
-        // fs.appendFile(note + '\n')
-        // console.log('entered data')
-        // console.log(note)
-        fs.appendFile(note +'\n')
-        console.log(note)
+        if (note == '' || /^ *$/.test(note)) { // If data is just whitespace
+            return
+        }
+        else {
+            fs.appendFile('todofile', note + '\n', 'utf8', (err) => { // Append data to file
+                if (err) throw err;
+                console.log('Data appended')
+            })
+        }
+        document.getElementById('input-note-field').value = '' // Delete values from input field
     }
 }
 
@@ -186,9 +190,9 @@ document.getElementById('input-note-field').onkeypress = function(e){
 
 // Main
 
-window.onload = function(){
+window.onload = function () {
     date_string = getDateElement()
-        handleWindowControls()
+    handleWindowControls()
     // loadAndDisplayTodo()
     data = getData()
     console.log(data)
