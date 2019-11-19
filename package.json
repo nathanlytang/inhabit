@@ -19,5 +19,8 @@
   "dependencies": {
     "jquery": "^3.4.1",
     "node-notifier": "^6.0.0"
+  },
+  "devDependencies": {
+    "electron": "^7.1.1"
   }
 }
