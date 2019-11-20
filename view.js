@@ -124,12 +124,13 @@ function getData() {
 }
 
 function printData(data) {
-    var table = document.getElementById('todo-table')
+    // var table = document.getElementById('todo-table')
     var index
     for (index of data) {
         // $('#todo-table').append(updateString)
         // $('#todo-table').append(index)
-        table.innerHTML = index
+        // table.innerHTML = index
+        $('todo-table').append(index)
         console.log(index)
     }
     // document.location.reload(true)
@@ -177,7 +178,7 @@ document.getElementById('input-note-field').onkeypress = function (e) {
             return
         }
         else {
-            fs.appendFile('todofile', note + '\n', 'utf8', (err) => { // Append data to file
+            fs.appendFile('todofile', '\n' + note, 'utf8', (err) => { // Append data to file
                 if (err) throw err;
                 console.log('Data appended')
             })
@@ -198,3 +199,24 @@ window.onload = function () {
     console.log(data)
     printData(data)
 }
+
+
+///////// DOES NOT WORKKK :((( /////////
+
+$(document).ready(function () {
+    // $('#input-note-field').focus(function() {
+    //     $('#calendar-image').toggle();
+    //     console.log('calendar focus')
+    // });
+
+    if ($('#input-note-field').is(':focus') || $('#calendar-image').is('focus')) {
+        $('#calendar-image').focus()
+    }
+    else {
+        console.log('blurring')
+        $('#calendar-image').blur()
+    }
+    // $('#calendar-image').focus(function() {
+    //     $('#input-note-field').blur()
+    // })
+});
