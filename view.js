@@ -203,20 +203,24 @@ window.onload = function () {
 
 ///////// DOES NOT WORKKK :((( /////////
 
-$(document).ready(function () {
-    // $('#input-note-field').focus(function() {
-    //     $('#calendar-image').toggle();
-    //     console.log('calendar focus')
-    // });
+// $(document).ready(function () {
+//     // $('#input-note-field').focus(function() {
+//     //     $('#calendar-image').toggle();
+//     //     console.log('calendar focus')
+//     // });
 
-    if ($('#input-note-field').is(':focus') || $('#calendar-image').is('focus')) {
-        $('#calendar-image').focus()
-    }
-    else {
-        console.log('blurring')
-        $('#calendar-image').blur()
-    }
-    // $('#calendar-image').focus(function() {
-    //     $('#input-note-field').blur()
-    // })
-});
+//     if ($('#input-note-field').is(':focus') || $('#calendar-image').is('focus')) {
+//         $('#calendar-image').focus()
+//     }
+//     else {
+//         console.log('blurring')
+//         $('#calendar-image').blur()
+//     }
+//     // $('#calendar-image').focus(function() {
+//     //     $('#input-note-field').blur()
+//     // })
+// });
+
+// document.querySelector('input[type="note"').addEventListener('focus', (event) => {
+//     $('#calendar-image').toggle()
+// })
