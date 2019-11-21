@@ -174,5 +174,5 @@ select.form-control:focus::-ms-value {
   position: absolute;
   bottom: 10px;
   right: 15px;
-  display: none;
+  /* display: none; */ /* Calendar appear on input focus (ignore for now) */
 }

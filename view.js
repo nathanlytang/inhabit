@@ -201,7 +201,7 @@ window.onload = function () {
 }
 
 
-///////// DOES NOT WORKKK :((( /////////
+// Calendar Appear on Input Focus (Ignore for now)
 
 // $(document).ready(function () {
 //     // $('#input-note-field').focus(function() {
