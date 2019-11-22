@@ -19,11 +19,11 @@ function createWindow() {
     })
     win.setMenu(null)
 //    win.setMenuBarVisibility(false)
-   win.loadURL(url.format ({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file:',
-      slashes: true
-   }))
+    win.loadURL(url.format ({
+        pathname: path.join(__dirname, 'index.html'),
+        protocol: 'file:',
+        slashes: true
+    }))
 }
 
 app.on('ready', createWindow)
