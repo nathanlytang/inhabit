@@ -41,11 +41,13 @@
 // }
 
 // loadAndDisplayContacts()
-
 const remote = require('electron').remote;
 let fs = require('fs')
 let $ = require('jquery')
 let filename = "todofile"
+const {app, BrowserWindow} = require('electron').remote
+const url = require('url')
+const path = require('path')
 
 function getDateElement() {
     var date = new Date();
@@ -224,3 +226,31 @@ window.onload = function () {
 // document.querySelector('input[type="note"').addEventListener('focus', (event) => {
 //     $('#calendar-image').toggle()
 // })
+
+// let calendarWin
+// function createCalendar() {
+//     calendarWin = new BrowserWindow({
+//         width: 200, 
+//         height: 700, 
+//         frame: false, 
+//         transparent: false,
+//         fullscreen: false,
+//     });
+//     calendarWin.loadURL(url.format ({
+//         pathname: path.join(__dirname, 'calendar.html'),
+//         protocol: 'file:',
+//         slashes: true,
+//      }));
+// };
+
+function callCalendar() {
+    let calendarWin = new BrowserWindow({
+       width: 300,
+       height: 400, 
+    })
+    calendarWin.on('close', function () {
+        win = null
+    })
+    calendarWin.loadURL(path.join('file://', __dirname, 'calendar.html'))
+    calendarWin.show()
+}
