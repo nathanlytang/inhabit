@@ -24,6 +24,10 @@ function createWindow() {
         protocol: 'file:',
         slashes: true
     }))
+    // calendarWin = new BrowserWindow({
+    //     width: 400,
+    //     height: 50,
+    // })
 }
 
 app.on('ready', createWindow)

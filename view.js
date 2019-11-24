@@ -246,10 +246,13 @@ window.onload = function () {
 function callCalendar() {
     let calendarWin = new BrowserWindow({
        width: 300,
-       height: 400, 
+       height: 400,
+    //    frame = false
     })
+    calendarWin.setMenu = null
+    calendarWin.setMenuBarVisibility(false)
     calendarWin.on('close', function () {
-        win = null
+        calendarWin = null
     })
     calendarWin.loadURL(path.join('file://', __dirname, 'calendar.html'))
     calendarWin.show()
