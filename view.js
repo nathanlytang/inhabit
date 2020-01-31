@@ -245,10 +245,13 @@ window.onload = function () {
 
 function callCalendar() {
     let calendarWin = new BrowserWindow({
-       width: 300,
-       height: 400,
+        width: 300,
+        height: 400,
     //    frame = false
-    })
+        webPreferences: {
+        devTools: true,
+        nodeIntegration: true
+    }})
     calendarWin.setMenu = null
     calendarWin.setMenuBarVisibility(false)
     calendarWin.on('close', function () {
