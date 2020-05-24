@@ -8,8 +8,8 @@
 </p>
 
 
-# ToDo
+# Inhabit
 
-A simple To-do list desktop application built in HTML/CSS/JS using the Electron framework
+A simple to-do list desktop application built in HTML/CSS/JS using the Electron framework.
 
 ### Status: In Progress
