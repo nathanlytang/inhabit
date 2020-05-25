@@ -14,13 +14,13 @@
 // function addEntry(name, email) {
 //    if(name && email) {
 //       sno++
-//       let updateString = '<tr><td>'+ sno + '</td><td>'+ name +'</td><td>' 
+//       let updateString = '<tr><td>'+ sno + '</td><td>'+ name +'</td><td>'
 //          + email +'</td></tr>'
 //       $('#contact-table').append(updateString)
 //    }
 // }
 
-// function loadAndDisplayContacts() {  
+// function loadAndDisplayContacts() {
 
 //    //Check if file exists
 //    if(fs.existsSync(filename)) {
@@ -41,104 +41,115 @@
 // }
 
 // loadAndDisplayContacts()
-const remote = require('electron').remote;
-let fs = require('fs')
-let $ = require('jquery')
-let filename = "todofile"
-const {app, BrowserWindow} = require('electron').remote
-const url = require('url')
-const path = require('path')
+const remote = require("electron").remote;
+let fs = require("fs");
+let $ = require("jquery");
+let filename = "todofile";
+const { app, BrowserWindow } = require("electron").remote;
+const url = require("url");
+const path = require("path");
 
 function getDateElement() {
-    var date = new Date();
-    var monthDict = {
-        0: "January",
-        1: "February",
-        2: "March",
-        3: "April",
-        4: "May",
-        5: "June",
-        6: "July",
-        7: "August",
-        8: "September",
-        9: "October",
-        10: "November",
-        11: "December",
-    };
-    var dayDict = {
-        0: "Sun",
-        1: "Mon",
-        2: "Tues",
-        3: "Wed",
-        4: "Thurs",
-        5: "Fri",
-        6: "Sat",
-    };
-    var date_string_day = date.getDay();
-    var date_string_month = date.getMonth();
-    var date_string = (dayDict[date_string_day] + ' ' + date.getDate() + ' ' + monthDict[date_string_month]);
-    document.getElementById('date').innerHTML = date_string;
-    return date_string;
+  var date = new Date();
+  var monthDict = {
+    0: "January",
+    1: "February",
+    2: "March",
+    3: "April",
+    4: "May",
+    5: "June",
+    6: "July",
+    7: "August",
+    8: "September",
+    9: "October",
+    10: "November",
+    11: "December",
+  };
+  var dayDict = {
+    0: "Sun",
+    1: "Mon",
+    2: "Tues",
+    3: "Wed",
+    4: "Thurs",
+    5: "Fri",
+    6: "Sat",
+  };
+  var date_string_day = date.getDay();
+  var date_string_month = date.getMonth();
+  var date_string =
+    dayDict[date_string_day] +
+    " " +
+    date.getDate() +
+    " " +
+    monthDict[date_string_month];
+  document.getElementById("date").innerHTML = date_string;
+  return date_string;
 }
 
 // Window buttons
 
 function handleWindowControls() {
-    let win = remote.getCurrentWindow();
-    document.getElementById('min-button').addEventListener("click", event => {
-        win.minimize();
-    });
-    document.getElementById('close-button').addEventListener("click", event => {
-        win.close();
-    });
+  let win = remote.getCurrentWindow();
+  document.getElementById("min-button").addEventListener("click", (event) => {
+    win.minimize();
+  });
+  document.getElementById("close-button").addEventListener("click", (event) => {
+    win.close();
+  });
 }
 
 // File System List and Classes
 
 class list_items {
-    constructor(item_name, day_to_complete) {
-        this.item_name = item_name
-        this.day_to_complete = day_to_complete
-        this.completed = false
-    }
-    get_item_name() {
-        return this.item_name
-    }
-    get_day_to_complete() {
-        return this.day_to_complete
-    }
+  constructor(item_name, day_to_complete) {
+    this.item_name = item_name;
+    this.day_to_complete = day_to_complete;
+    this.completed = false;
+  }
+  get_item_name() {
+    return this.item_name;
+  }
+  get_day_to_complete() {
+    return this.day_to_complete;
+  }
 }
 
 // Read file and get data
 
 function getData() {
-    if (fs.existsSync(filename)) {
-        let data = fs.readFileSync(filename, 'utf8').split('\n')
-        return data
-    } else {
-        console.log("File Doesn\'t Exist. Creating new file.")
-        fs.writeFile(filename, '', (err) => {
-            if (err)
-                console.log(err)
-        })
-        return null
-    }
+  if (fs.existsSync(filename)) {
+    let data = fs.readFileSync(filename, "utf8").split("\n");
+
+    return data;
+  } else {
+    console.log("File Doesn't Exist. Creating new file.");
+    fs.writeFile(filename, "", (err) => {
+      if (err) console.log(err);
+    });
+    return null;
+  }
 }
 
 function printData(data) {
-    // var table = document.getElementById('todo-table')
-    var index
-    for (index of data) {
-        // $('#todo-table').append(updateString)
-        // $('#todo-table').append(index)
-        // table.innerHTML = index
-        $('todo-table').append(index)
-        console.log(index)
-    }
-    // document.location.reload(true)
+  const table = document.getElementById("todo_table");
+
+  for (item of data) {
+    let row = table.insertRow(item);
+    let check = row.insertCell(0);
+    let title = row.insertCell(1);
+    let index = data.indexOf(item);
+
+    row.classList.add("table_row");
+    title.innerHTML = item;
+    check.innerHTML = `<input class="checkbox" type="checkbox" id="row_${row.rowIndex}">`;
+    check.addEventListener("change", () => {
+      table.deleteRow(row.rowIndex);
+    });
+  }
+  return table;
 }
 
-// function loadAndDisplayTodo() {  
+// function loadAndDisplayTodo() {
 
 //    //Check if file exists
 //     if(fs.existsSync(filename)) {
@@ -162,46 +173,44 @@ function printData(data) {
 // Add data entry
 
 function addEntry(item_name, day_to_complete) {
-    if (item_name && day_to_complete) {
-        let updateString = '<tr><td>' + item_name + '</td><td>' + day_to_complete + '</td></tr>'
-        $('#todo_table').append(updateString)
-        console.log(updateString)
-    }
+  if (item_name && day_to_complete) {
+    let updateString =
+      "<tr><td>" + item_name + "</td><td>" + day_to_complete + "</td></tr>";
+    $("#todo_table").append(updateString);
+    console.log(updateString);
+  }
 }
 
 // Detect Enter on Input Field
 
-document.getElementById('input-note-field').onkeypress = function (e) {
-    if (!e) e = window.event;
-    var keyCode = e.code || e.which; // User press enter
-    if (keyCode == 'Enter') {
-        var note = document.getElementById('input-note-field').value
-        if (note == '' || /^ *$/.test(note)) { // If data is just whitespace
-            return
-        }
-        else {
-            fs.appendFile('todofile', '\n' + note, 'utf8', (err) => { // Append data to file
-                if (err) throw err;
-                console.log('Data appended')
-            })
-        }
-        document.getElementById('input-note-field').value = '' // Delete values from input field
+document.getElementById("input-note-field").onkeypress = function (e) {
+  if (!e) e = window.event;
+  var keyCode = e.code || e.which; // User press enter
+  if (keyCode == "Enter") {
+    var note = document.getElementById("input-note-field").value;
+    if (note == "" || /^ *$/.test(note)) {
+      // If data is just whitespace
+      return;
+    } else {
+      fs.appendFile("todofile", "\n" + note, "utf8", (err) => {
+        // Append data to file
+        if (err) throw err;
+        console.log("Data appended");
+      });
     }
-}
-
-
+    document.getElementById("input-note-field").value = ""; // Delete values from input field
+  }
+};
 
 // Main
 
 window.onload = function () {
-    date_string = getDateElement()
-    handleWindowControls()
-    // loadAndDisplayTodo()
-    data = getData()
-    console.log(data)
-    printData(data)
-}
-
+  date_string = getDateElement();
+  handleWindowControls();
+  // loadAndDisplayTodo()
+  data = getData();
+  printData(data);
+};
 
 // Calendar Appear on Input Focus (Ignore for now)
 
@@ -230,9 +239,9 @@ window.onload = function () {
 // let calendarWin
 // function createCalendar() {
 //     calendarWin = new BrowserWindow({
-//         width: 200, 
-//         height: 700, 
-//         frame: false, 
+//         width: 200,
+//         height: 700,
+//         frame: false,
 //         transparent: false,
 //         fullscreen: false,
 //     });
@@ -244,19 +253,20 @@ window.onload = function () {
 // };
 
 function callCalendar() {
-    let calendarWin = new BrowserWindow({
-        width: 300,
-        height: 400,
+  let calendarWin = new BrowserWindow({
+    width: 300,
+    height: 400,
     //    frame = false
-        webPreferences: {
-        devTools: true,
-        nodeIntegration: true
-    }})
-    calendarWin.setMenu = null
-    calendarWin.setMenuBarVisibility(false)
-    calendarWin.on('close', function () {
-        calendarWin = null
-    })
-    calendarWin.loadURL(path.join('file://', __dirname, 'calendar.html'))
-    calendarWin.show()
+    webPreferences: {
+      devTools: true,
+      nodeIntegration: true,
+    },
+  });
+  calendarWin.setMenu = null;
+  calendarWin.setMenuBarVisibility(false);
+  calendarWin.on("close", function () {
+    calendarWin = null;
+  });
+  calendarWin.loadURL(path.join("file://", __dirname, "calendar.html"));
+  calendarWin.show();
 }
