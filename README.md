@@ -13,3 +13,5 @@
 A simple to-do list desktop application built in HTML/CSS/JS using the Electron framework.
 
 ### Status: In Progress
+
+    To run: Clone the repository then `npm install` then `npm start`
