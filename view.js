@@ -139,8 +139,7 @@ function printData(data) {
     for (item of data) {
 
         if (item == "") {
-            console.log(title)
-            
+            // pass
         } else {
             let row = table.insertRow(item);
             let check = row.insertCell(0);
