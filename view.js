@@ -148,15 +148,30 @@ function printData(data) {
 
             row.classList.add("table_row");
             title.innerHTML = item;
-            check.innerHTML = `<input class="checkbox" type="checkbox" id="row_${row.rowIndex}">`;
+            check.innerHTML = `<input class="checkbox" type="checkbox">`;
 
             check.addEventListener("change", () => {
                 // $("").fadeOut();
+                deleteIndex = (data.length - row.rowIndex);
+                data.splice(deleteIndex-1, 1);
                 table.deleteRow(row.rowIndex);
+                console.log(data)
+
+                fs.writeFile("todofile", "", "utf8", (err) => {
+                    if (err) throw err;
+                });
+                
+                for (item of data) {
+                    if (item == "") {
+                        // pass
+                    } else {
+                        fs.appendFile("todofile", "\n" + item, "utf8", (err) => {
+                            if (err) throw err;
+                        });
+                    }
+                };
             });
         }
-        
-        
     }
     return table;
 }
