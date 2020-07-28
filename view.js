@@ -137,17 +137,27 @@ function printData(data) {
     const table = document.getElementById("todo_table");
 
     for (item of data) {
-        let row = table.insertRow(item);
-        let check = row.insertCell(0);
-        let title = row.insertCell(1);
-        let index = data.indexOf(item);
 
-        row.classList.add("table_row");
-        title.innerHTML = item;
-        check.innerHTML = `<input class="checkbox" type="checkbox" id="row_${row.rowIndex}">`;
-        check.addEventListener("change", () => {
-            table.deleteRow(row.rowIndex);
-        });
+        if (item == "") {
+            console.log(title)
+            
+        } else {
+            let row = table.insertRow(item);
+            let check = row.insertCell(0);
+            let title = row.insertCell(1);
+            let index = data.indexOf(item);
+
+            row.classList.add("table_row");
+            title.innerHTML = item;
+            check.innerHTML = `<input class="checkbox" type="checkbox" id="row_${row.rowIndex}">`;
+
+            check.addEventListener("change", () => {
+                // $("").fadeOut();
+                table.deleteRow(row.rowIndex);
+            });
+        }
+        
+        
     }
     return table;
 }
