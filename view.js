@@ -148,7 +148,7 @@ function printData(data) {
 
             row.classList.add("table_row");
             title.innerHTML = item;
-            check.innerHTML = `<input class="checkbox" type="checkbox">`;
+            check.innerHTML = `<span class="checkbox-span"><input type="checkbox" class="checkbox"></span>`;
 
             check.addEventListener("change", () => {
                 // $("").fadeOut();
