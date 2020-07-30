@@ -148,28 +148,35 @@ function printData(data) {
 
             row.classList.add("table_row");
             title.innerHTML = item;
-            check.innerHTML = `<span class="checkbox-span"><input type="checkbox" class="checkbox"></span>`;
+            check.innerHTML = `<label class="checkbox-label"><input type="checkbox"><span class="checkbox-custom"></span></label>`;
 
             check.addEventListener("change", () => {
-                // $("").fadeOut();
-                deleteIndex = (data.length - row.rowIndex);
-                data.splice(deleteIndex-1, 1);
-                table.deleteRow(row.rowIndex);
-                console.log(data)
+                setTimeout(() => {
+                    
+                    // var fadeElem = check.style;
+                    // fadeElem.opacity = 1;
+                    // (function fade(){(fadeElem.opacity-=.1)<0?fadeElem.display="none":setTimeout(fade,40)})();
+                    // console.log(fadeElem)
 
-                fs.writeFile("todofile", "", "utf8", (err) => {
-                    if (err) throw err;
-                });
+                    deleteIndex = (data.length - row.rowIndex);
+                    data.splice(deleteIndex-1, 1);
+                    table.deleteRow(row.rowIndex);
+                    console.log(data)
+
+                    fs.writeFileSync("todofile", "", "utf8", (err) => {
+                        if (err) throw err;
+                    });
                 
-                for (item of data) {
-                    if (item == "") {
-                        // pass
-                    } else {
-                        fs.appendFile("todofile", "\n" + item, "utf8", (err) => {
-                            if (err) throw err;
-                        });
-                    }
-                };
+                    for (item of data) {
+                        if (item == "") {
+                            // pass
+                        } else {
+                            fs.appendFileSync("todofile", "\n" + item, "utf8", (err) => {
+                                if (err) throw err;
+                            });
+                        }
+                    };
+                }, 500);
             });
         }
     }
