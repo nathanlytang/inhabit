@@ -1,5 +1,5 @@
 {
-  "name": "todo",
+  "name": "inhabit",
   "version": "1.0.0",
   "description": "Todo list",
   "main": "main.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nathanlytang/todo.git"
+    "url": "git+https://github.com/nathanlytang/inhabit.git"
   },
   "author": "Nathan Tang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nathanlytang/todo/issues"
+    "url": "https://github.com/nathanlytang/inhabit/issues"
   },
-  "homepage": "https://github.com/nathanlytang/todo#readme",
+  "homepage": "https://github.com/nathanlytang/inhabit#readme",
   "dependencies": {
     "hello-week": "^2.10.3",
     "jquery": "^3.5.1",
