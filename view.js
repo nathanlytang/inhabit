@@ -48,6 +48,7 @@ let filename = "todofile";
 const { app, BrowserWindow } = require("electron").remote;
 const url = require("url");
 const path = require("path");
+// const { table } = require("console");
 
 // Date functions
 
@@ -138,8 +139,9 @@ function printData(data) {
 
     for (item of data) {
 
-        if (item == "") {
+        if (item == "" || /^ *$/.test(item)) {
             // pass
+            console.log('Skip blank')
         } else {
             let row = table.insertRow(item);
             let check = row.insertCell(0);
@@ -231,6 +233,8 @@ document.getElementById("input-note-field").onkeypress = function (e) {
                 if (err) throw err;
                 console.log("Data appended");
             });
+            location.reload();
+
         }
         document.getElementById("input-note-field").value = ""; // Delete values from input field
     }
