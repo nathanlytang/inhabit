@@ -48,7 +48,6 @@ let filename = "todofile";
 const { app, BrowserWindow } = require("electron").remote;
 const url = require("url");
 const path = require("path");
-// const { table } = require("console");
 
 // Date functions
 
@@ -134,8 +133,9 @@ function getData() {
     }
 }
 
-function printData(data) {
-    const table = document.getElementById("todo_table");
+function printData(data, table) {
+
+    table.innerHTML = "";
 
     for (item of data) {
 
@@ -154,23 +154,23 @@ function printData(data) {
 
             check.addEventListener("change", () => {
                 setTimeout(() => {
-                    
+
                     // var fadeElem = check.style;
                     // fadeElem.opacity = 1;
                     // (function fade(){(fadeElem.opacity-=.1)<0?fadeElem.display="none":setTimeout(fade,40)})();
                     // console.log(fadeElem)
 
                     deleteIndex = (data.length - row.rowIndex);
-                    data.splice(deleteIndex-1, 1);
+                    data.splice(deleteIndex - 1, 1);
                     table.deleteRow(row.rowIndex);
                     console.log(data)
 
                     fs.writeFileSync("todofile", "", "utf8", (err) => {
                         if (err) throw err;
                     });
-                
+
                     for (item of data) {
-                        if (item == "") {
+                        if (item == "" || /^ *$/.test(item)) {
                             // pass
                         } else {
                             fs.appendFileSync("todofile", "\n" + item, "utf8", (err) => {
@@ -228,12 +228,16 @@ document.getElementById("input-note-field").onkeypress = function (e) {
             // If data is just whitespace
             return;
         } else {
-            fs.appendFile("todofile", "\n" + note, "utf8", (err) => {
+            fs.appendFileSync(filename, "\n" + note, "utf8", (err) => {
                 // Append data to file
                 if (err) throw err;
                 console.log("Data appended");
             });
-            location.reload();
+
+            // Update table with data
+            let data = fs.readFileSync(filename, "utf8").split("\n");
+            const table = document.getElementById("todo_table");
+            printData(data, table);
 
         }
         document.getElementById("input-note-field").value = ""; // Delete values from input field
@@ -247,7 +251,8 @@ window.onload = function () {
     handleWindowControls();
     // loadAndDisplayTodo()
     data = getData();
-    printData(data);
+    const table = document.getElementById("todo_table");
+    printData(data, table);
 };
 
 // Calendar Appear on Input Focus (Ignore for now)
