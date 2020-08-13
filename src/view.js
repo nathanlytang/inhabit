@@ -123,7 +123,7 @@ function printData(data, table) {
                     data.splice(data.length - row.rowIndex - 1, 1);
                     table.deleteRow(row.rowIndex);
 
-                    fs.writeFileSync("todofile", "", "utf8", (err) => {
+                    fs.writeFileSync(filename, "", "utf8", (err) => {
                         if (err) throw err;
                     });
 
@@ -131,7 +131,7 @@ function printData(data, table) {
                         if (item == "" || /^ *$/.test(item)) {
                             // If item blank, pass
                         } else {
-                            fs.appendFileSync("todofile", "\n" + item, "utf8", (err) => {
+                            fs.appendFileSync(filename, "\n" + item, "utf8", (err) => {
                                 if (err) throw err;
                             });
                         }
