@@ -2,7 +2,7 @@
   "name": "inhabit",
   "version": "0.1.1",
   "description": "Todo list",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "electron .",
     "start": "electron ."
