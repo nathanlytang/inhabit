@@ -49,6 +49,13 @@ const { app, BrowserWindow } = require("electron").remote;
 const url = require("url");
 const path = require("path");
 
+function windowResize() {
+    var bodyElem = document.querySelector("#window-body");
+    var backImgElem = document.querySelector("#background-image");
+    var newheight = (bodyElem.clientHeight - backImgElem.clientHeight - 60)
+    document.getElementById("todo_list").style.height = newheight + "px";
+}
+
 // Date functions
 
 function getDateElement() {
@@ -121,9 +128,8 @@ class list_items {
 function getData() {
     if (fs.existsSync(filename)) {
         let data = fs.readFileSync(filename, "utf8").split("\n");
-        console.log(data)
-
         return data;
+
     } else {
         console.log("File Doesn't Exist. Creating new file.");
         fs.writeFile(filename, "", (err) => {
@@ -136,12 +142,10 @@ function getData() {
 function printData(data, table) {
 
     table.innerHTML = "";
-
     for (item of data) {
 
         if (item == "" || /^ *$/.test(item)) {
-            // pass
-            console.log('Skip blank')
+            // If item blank, pass
         } else {
             let row = table.insertRow(item);
             let check = row.insertCell(0);
@@ -155,15 +159,8 @@ function printData(data, table) {
             check.addEventListener("change", () => {
                 setTimeout(() => {
 
-                    // var fadeElem = check.style;
-                    // fadeElem.opacity = 1;
-                    // (function fade(){(fadeElem.opacity-=.1)<0?fadeElem.display="none":setTimeout(fade,40)})();
-                    // console.log(fadeElem)
-
-                    deleteIndex = (data.length - row.rowIndex);
-                    data.splice(deleteIndex - 1, 1);
+                    data.splice(data.length - row.rowIndex - 1, 1);
                     table.deleteRow(row.rowIndex);
-                    console.log(data)
 
                     fs.writeFileSync("todofile", "", "utf8", (err) => {
                         if (err) throw err;
@@ -171,7 +168,7 @@ function printData(data, table) {
 
                     for (item of data) {
                         if (item == "" || /^ *$/.test(item)) {
-                            // pass
+                            // If item blank, pass
                         } else {
                             fs.appendFileSync("todofile", "\n" + item, "utf8", (err) => {
                                 if (err) throw err;
