@@ -1,6 +1,6 @@
 {
   "name": "inhabit",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "Todo list",
   "main": "main.js",
   "scripts": {
