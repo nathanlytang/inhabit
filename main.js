@@ -5,7 +5,6 @@ const path = require("path");
 let win;
 
 function createWindow() {
-    //    win = new BrowserWindow({width: 400, height: 800, })
     win = new BrowserWindow({
         width: 350,
         height: 700,
@@ -22,8 +21,7 @@ function createWindow() {
         },
     });
     win.setMenu(null);
-    win.webContents.openDevTools();
-    //    win.setMenuBarVisibility(false)
+    win.webContents.openDevTools({mode:'undocked'});
     win.loadURL(
         url.format({
             pathname: path.join(__dirname, "index.html"),
