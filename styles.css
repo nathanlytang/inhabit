@@ -2,11 +2,30 @@ html, body {
     height: 100%;
     line-height: 1.15;
     overflow-y: hidden;
+    border-radius: 8px;
 }
 
 body {
     transform: scale(0.97);
-    border-radius: 8px;
+}
+
+/* Custom scrollbar */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(150, 150, 150);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(80, 80, 80);
 }
 
 /* Window buttons */
@@ -58,7 +77,7 @@ body {
 
 .container {
     height: 100%;
-    background-color: white;
+    background-color: rgba(254, 255, 255, 0.99);
 }
 
 #background-image {
@@ -76,12 +95,12 @@ body {
     position: absolute;
     bottom: 25px;
     left: 16px;
-    color: white;
+    color: #feffff;
 }
 
 #date {
     position: absolute;
-    color: white;
+    color: #feffff;
     bottom: 22px;
     left: 20px;
 }
@@ -130,7 +149,7 @@ body {
     height: 0px;
     width: 0px;
     border-radius: 5px;
-    border: solid white;
+    border: solid #feffff;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(0deg) scale(0);
     transform: rotate(0deg) scale(0);
@@ -157,7 +176,7 @@ body {
     top: -1px;
     width: 6px;
     height: 12px;
-    border: solid white;
+    border: solid #feffff;
     border-width: 0 2px 2px 0;
     background-color: transparent;
     border-radius: 0;
@@ -171,6 +190,7 @@ body {
     bottom: 0px;
     width: 80%;
     border: none;
+    background-color: rgba(254, 255, 255, 0.1);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     z-index: 2;
 }
@@ -183,7 +203,7 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    background-color: #fff;
+    background-color: rgba(254, 255, 255, 0.99);
     background-clip: padding-box;
     border-radius: 8px 8px 8px 8px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -203,7 +223,7 @@ body {
 
 .form-control:focus {
     color: #495057;
-    background-color: #fff;
+    background-color: rgba(254, 255, 255, 0.99);
     outline: 0;
 }
 
@@ -239,7 +259,7 @@ body {
 
 select.form-control:focus::-ms-value {
     color: #495057;
-    background-color: #fff;
+    background-color: rgba(254, 255, 255, 0.99);
 }
 
 .form-control-file, .form-control-range {
