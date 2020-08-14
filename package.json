@@ -1,29 +1,55 @@
 {
-  "name": "inhabit",
-  "version": "0.1.1",
-  "description": "Todo list",
-  "main": "src/main.js",
-  "scripts": {
-    "test": "electron .",
-    "start": "electron ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nathanlytang/inhabit.git"
-  },
-  "author": "Nathan Tang",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nathanlytang/inhabit/issues"
-  },
-  "homepage": "https://github.com/nathanlytang/inhabit#readme",
-  "dependencies": {
-    "hello-week": "^2.10.3",
-    "jquery": "^3.5.1",
-    "node-notifier": "^6.0.0"
-  },
-  "devDependencies": {
-    "electron": "^7.2.4",
-    "electron-reload": "^1.5.0"
-  }
+    "name": "inhabit",
+    "version": "0.1.2",
+    "description": "Todo list",
+    "main": "src/main.js",
+    "scripts": {
+        "test": "electron .",
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --arch=ia32 --arch=arm64 --icon=assets/icon/icon.ico --out=dist",
+        "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icon/icon.icns",
+        "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --arch=ia32 --arch=arm64 --arch=armv7l --icon=assets/icon/icon,icns"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nathanlytang/inhabit.git"
+    },
+    "author": "Nathan Tang",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/nathanlytang/inhabit/issues"
+    },
+    "homepage": "https://github.com/nathanlytang/inhabit#readme",
+    "dependencies": {
+        "hello-week": "^2.10.3",
+        "jquery": "^3.5.1",
+        "node-notifier": "^6.0.0"
+    },
+    "devDependencies": {
+        "electron": "^7.2.4",
+        "electron-builder": "^22.8.0",
+        "electron-reload": "^1.5.0"
+    },
+    "build": {
+        "appId": "com.inhabit.app",
+        "productName": "Inhabit",
+        "mac": {
+            "icon": "./assets/icon/icon.icns"
+        },
+        "win": {
+            "icon": "./assets/icon/icon.ico"
+        },
+        "files": [
+            "./build/**/*",
+            "./dist/**/*",
+            "./node_modules/**/*",
+            "./assets/**/*",
+            "./src/*"
+        ],
+        "directories": {
+            "buildResources": "assets/icon"
+        }
+    }
 }
