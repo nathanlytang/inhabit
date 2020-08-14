@@ -19,6 +19,7 @@ function createWindow() {
             devTools: false,
             nodeIntegration: true,
         },
+        // icon: path.join(__dirname, "..", "/assets/icon/icon.ico")
     });
     win.setMenu(null);
     win.webContents.openDevTools({mode:'undocked'});
