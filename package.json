@@ -9,8 +9,8 @@
         "pack": "electron-builder --dir",
         "dist": "electron-builder",
         "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --arch=ia32 --arch=arm64 --icon=assets/icon/icon.ico --out=dist",
-        "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icon/icon.icns",
-        "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --arch=ia32 --arch=arm64 --arch=armv7l --icon=assets/icon/icon,icns"
+        "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icon/icon.icns --out=dist",
+        "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --arch=ia32 --arch=arm64 --arch=armv7l --icon=assets/icon/icon.icns --out=dist"
     },
     "repository": {
         "type": "git",
