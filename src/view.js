@@ -108,6 +108,10 @@ function printData(data, table) {
         if (item == "" || /^ *$/.test(item)) {
             // If item blank, pass
         } else {
+            // if (item != NaN && (parseFloat(item) | 0) === parseFloat(item)) {
+
+            // }
+
             let row = table.insertRow(item);
             let check = row.insertCell(0);
             let title = row.insertCell(1);
@@ -118,25 +122,22 @@ function printData(data, table) {
             check.innerHTML = `<label class="checkbox-label"><input type="checkbox"><span class="checkbox-custom"></span></label>`;
 
             check.addEventListener("change", () => {
-                setTimeout(() => {
+                data.splice(data.length - row.rowIndex - 1, 1);
+                table.deleteRow(row.rowIndex);
 
-                    data.splice(data.length - row.rowIndex - 1, 1);
-                    table.deleteRow(row.rowIndex);
+                fs.writeFileSync(filename, "", "utf8", (err) => {
+                    if (err) throw err;
+                });
 
-                    fs.writeFileSync(filename, "", "utf8", (err) => {
-                        if (err) throw err;
-                    });
-
-                    for (item of data) {
-                        if (item == "" || /^ *$/.test(item)) {
-                            // If item blank, pass
-                        } else {
-                            fs.appendFileSync(filename, "\n" + item, "utf8", (err) => {
-                                if (err) throw err;
-                            });
-                        }
-                    };
-                }, 500);
+                for (item of data) {
+                    if (item == "" || /^ *$/.test(item)) {
+                        // If item blank, pass
+                    } else {
+                        fs.appendFileSync(filename, "\n" + item, "utf8", (err) => {
+                            if (err) throw err;
+                        });
+                    }
+                };
             });
         }
     }
