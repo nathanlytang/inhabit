@@ -108,9 +108,9 @@ function printData(data, table) {
         if (item == "" || /^ *$/.test(item)) {
             // If item blank, pass
         } else {
-            // if (item != NaN && (parseFloat(item) | 0) === parseFloat(item)) {
-
-            // }
+            if (!isNaN(item) && (function(x) { return (x | 0) === x; })(parseFloat(item))) { // Check if the entry is a number
+                item = item + " "; // Add a space to the end of the entry
+            };
 
             let row = table.insertRow(item);
             let check = row.insertCell(0);
