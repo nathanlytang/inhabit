@@ -109,7 +109,7 @@ function printData(data, table) {
             // If item blank, pass
         } else {
             if (!isNaN(item) && (function(x) { return (x | 0) === x; })(parseFloat(item))) { // Check if the entry is a number
-                item = item + " "; // Add a space to the end of the entry
+                item = item + "‏‏‎ ‎"; // Add a space to the end of the entry
             };
 
             let row = table.insertRow(item);
