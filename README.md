@@ -8,7 +8,7 @@
 </p>
 
 
-# Inhabit
+# <img src="https://raw.githubusercontent.com/nathanlytang/inhabit/master/assets/icon/logo.svg" width="48px"> Inhabit
 
 A simple to-do list desktop application built in HTML/CSS/JS using the Electron framework.
 
