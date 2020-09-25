@@ -69,7 +69,10 @@ function handleWindowControls() {
     });
 }
 
-// File System List and Classes
+/**
+ * @function saveTodo
+ * @description Overrides new JSON file with new todo tasks
+ */
 function saveTodo() {
     const table = document.getElementById('todo_table');
     var json_data = {};
@@ -87,6 +90,8 @@ function saveTodo() {
 
     fs.writeFileSync(filename, JSON.stringify(json_data));
 }
+
+// File System List and Classes
 class list_items {
     constructor(item_name, day_to_complete) {
         this.item_name = item_name;
@@ -117,6 +122,12 @@ function getData() {
     }
 }
 
+/**
+ * @function createCheckbox
+ * @description Creates the full HTML checkbox element
+ * @param {HTMLLabelElement} check - encapsulating HTML label element
+ * @returns {HTMLInputElement} checkbox - HTML checkbox element
+ */
 function createCheckbox(check) {
     const span = document.createElement('span');
     span.className = 'checkbox-custom';
@@ -133,12 +144,24 @@ function createCheckbox(check) {
     return checkbox;
 }
 
+/**
+ * @function processChange
+ * @description Strikethrough task or not based on checkbox status
+ * @param {string} task - String to strikethrough
+ * @param {HTMLTableCellElement} title - HTML element to set task
+ * @param {HTMLInputElement} checkbox - Conditional operator
+ */
 function processChange(task, title, checkbox) {
     title.innerHTML = (checkbox.checked) ? task.strike() : task;
 }
 
 // Print Data
-
+/**
+ * @function printData
+ * @description Creates a table with the given JSON data
+ * @param {JSON} data - JSON data from file
+ * @param {HTMLTableElement} table - Table to set tasks in
+ */
 function printData(data, table) {
 
     table.innerHTML = "";
