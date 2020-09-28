@@ -4,7 +4,9 @@ let $ = require("jquery");
 const { app, BrowserWindow } = require("electron").remote;
 const url = require("url");
 const path = require("path");
-let filename = path.join(__dirname, "todofile");
+let filename = path.join(__dirname, "todo.json");
+
+var index_count = 0
 
 // Resize table on window resize
 
@@ -62,12 +64,34 @@ function handleWindowControls() {
         win.minimize();
     });
     document.getElementById("close-button").addEventListener("click", (event) => {
+        saveTodo();
         win.close();
     });
 }
 
-// File System List and Classes
+/**
+ * @function saveTodo
+ * @description Overrides new JSON file with new todo tasks
+ */
+function saveTodo() {
+    const table = document.getElementById('todo_table');
+    var json_data = {};
+    var items = json_data['items'] = [];
 
+    for (i = 0; i < table.rows.length; i++) {
+        var nested_data = {};
+        var task_formatted = table.rows[i].childNodes[1].innerHTML;
+        task_formatted = task_formatted.replace('<strike>', '');
+        task_formatted = task_formatted.replace('</strike>', '');
+        nested_data['task'] = task_formatted;
+        nested_data['completed'] = table.rows[i].childNodes[0].firstElementChild.firstElementChild.checked;
+        items.push(nested_data);
+    }
+
+    fs.writeFileSync(filename, JSON.stringify(json_data));
+}
+
+// File System List and Classes
 class list_items {
     constructor(item_name, day_to_complete) {
         this.item_name = item_name;
@@ -98,50 +122,67 @@ function getData() {
     }
 }
 
-// Print Data
+/**
+ * @function createCheckbox
+ * @description Creates the full HTML checkbox element
+ * @param {HTMLLabelElement} check - encapsulating HTML label element
+ * @returns {HTMLInputElement} checkbox - HTML checkbox element
+ */
+function createCheckbox(check) {
+    const span = document.createElement('span');
+    span.className = 'checkbox-custom';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    const label = document.createElement('label');
+    label.className = 'checkbox-label';
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    check.appendChild(label);
+    checkbox.id = index_count;
+    index_count += 1;
 
+    return checkbox;
+}
+
+/**
+ * @function processChange
+ * @description Strikethrough task or not based on checkbox status
+ * @param {string} task - String to strikethrough
+ * @param {HTMLTableCellElement} title - HTML element to set task
+ * @param {HTMLInputElement} checkbox - Conditional operator
+ */
+function processChange(task, title, checkbox) {
+    title.innerHTML = (checkbox.checked) ? task.strike() : task;
+}
+
+// Print Data
+/**
+ * @function printData
+ * @description Creates a table with the given JSON data
+ * @param {JSON} data - JSON data from file
+ * @param {HTMLTableElement} table - Table to set tasks in
+ */
 function printData(data, table) {
 
     table.innerHTML = "";
-    for (item of data) {
 
-        if (item == "" || /^ *$/.test(item)) {
-            // If item blank, pass
-        } else {
-            if (!isNaN(item) && (function(x) { return (x | 0) === x; })(parseFloat(item))) { // Check if the entry is a number
-                item = item + "‏‏‎ ‎"; // Add a space to the end of the entry
-            };
+    for (i in data.items) {
+        let row = table.insertRow(i);
+        let check = row.insertCell(0);
+        let title = row.insertCell(1);
 
-            let row = table.insertRow(item);
-            let check = row.insertCell(0);
-            let title = row.insertCell(1);
-            let index = data.indexOf(item);
+        const task = data.items[i].task;
+        title.innerHTML = task;
 
-            row.classList.add("table_row");
-            title.innerHTML = item;
-            check.innerHTML = `<label class="checkbox-label"><input type="checkbox"><span class="checkbox-custom"></span></label>`;
+        const checkbox = createCheckbox(check);
 
-            check.addEventListener("change", () => {
-                data.splice(data.length - row.rowIndex - 1, 1);
-                table.deleteRow(row.rowIndex);
-
-                fs.writeFileSync(filename, "", "utf8", (err) => {
-                    if (err) throw err;
-                });
-
-                for (item of data) {
-                    if (item == "" || /^ *$/.test(item)) {
-                        // If item blank, pass
-                    } else {
-                        fs.appendFileSync(filename, "\n" + item, "utf8", (err) => {
-                            if (err) throw err;
-                        });
-                    }
-                };
-            });
+        if (data.items[i].completed) {
+            checkbox.checked = true;
+            title.innerHTML = data.items[i].task.strike();
         }
+
+        checkbox.addEventListener("change", () => processChange(task, title, checkbox));
     }
-    return table;
 }
 
 // Add data entry
@@ -159,23 +200,21 @@ function printData(data, table) {
 
 document.getElementById("input-note-field").onkeypress = function (e) {
     if (!e) e = window.event;
-    var keyCode = e.code || e.which; // User press enter
-    if (keyCode == "Enter") {
+    var keyCode = e.code; // User press enter
+    if (keyCode === "Enter") {
         var note = document.getElementById("input-note-field").value;
-        if (note == "" || /^ *$/.test(note)) {
-            // If data is just whitespace
-            return;
-        } else {
-            fs.appendFileSync(filename, "\n" + note, "utf8", (err) => {
-                // Append data to file
-                if (err) throw err;
-                console.log("Data appended");
-            });
+        if (!(note === "" || /^ *$/.test(note))) {
+            var table = document.getElementById('todo_table');
+            let row = table.insertRow(index_count);
+            let check = row.insertCell(0);
+            let title = row.insertCell(1);
 
-            // Update table with data
-            let data = fs.readFileSync(filename, "utf8").split("\n");
-            const table = document.getElementById("todo_table");
-            printData(data, table);
+            const task = note;
+            title.innerHTML = task;
+
+            const checkbox = createCheckbox(check);
+
+            checkbox.addEventListener("change", () => processChange(task, title, checkbox));
 
         }
         document.getElementById("input-note-field").value = ""; // Delete values from input field
@@ -188,9 +227,9 @@ window.onload = function () {
     date_string = getDateElement();
     handleWindowControls();
     // loadAndDisplayTodo()
-    data = getData();
+    // data = getData();
     const table = document.getElementById("todo_table");
-    printData(data, table);
+    $.getJSON(filename, (data) => printData(data, table));
 };
 
 // Calendar Appear on Input Focus (Ignore for now)
