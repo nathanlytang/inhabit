@@ -56,7 +56,13 @@ const styles = StyleSheet.create({
     inputText: {
         fontSize: 25,
         margin: 10,
-    }
+    },
+    deleteText: {
+        fontSize: 25,
+        color: 'white',
+        fontWeight: '500',
+        textAlign: 'center'
+    },
 });
 
 export default styles;
