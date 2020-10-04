@@ -139,9 +139,28 @@ function createCheckbox(check) {
     label.appendChild(span);
     check.appendChild(label);
     checkbox.id = index_count;
-    index_count += 1;
-
     return checkbox;
+}
+
+/**
+ * @function createButton
+ * @description Create HTML button element
+ * @param {HTMLLabelElement} del_button - encapsulating HTML label element
+ * @returns {HTMLInputElement} button - HTML button element
+ */
+function createButton(del_button) {
+    const span = document.createElement('span');
+    span.className = 'button-custom';
+    const button = document.createElement('input')
+    button.type = 'button';
+    const label = document.createElement('label');
+    span.innerHTML = "&times;";
+    label.className = 'button-label';
+    label.appendChild(button);
+    label.appendChild(span);
+    del_button.appendChild(label);
+    button.id = index_count;
+    return button;
 }
 
 /**
@@ -155,6 +174,16 @@ function processChange(task, title, checkbox) {
     title.innerHTML = (checkbox.checked) ? task.strike() : task;
 }
 
+/**
+ * @function deleteItem
+ * @description Delete item from list
+ * @param {HTMLTableCellElement} row - Row of the table to be deleted
+ */
+function deleteItem(row) {
+    document.getElementById('todo_table').deleteRow(row.rowIndex);
+    index_count -= 1;
+}
+
 // Print Data
 /**
  * @function printData
@@ -164,17 +193,21 @@ function processChange(task, title, checkbox) {
  */
 function printData(data, table) {
 
-    table.innerHTML = "";
+    table.innerHTML = "<colgroup><col style=''><col style='width:100%'></colgroup>";
 
     for (i in data.items) {
         let row = table.insertRow(i);
+        row.className = 'item_row';
         let check = row.insertCell(0);
         let title = row.insertCell(1);
+        let del_button = row.insertCell(2);
 
         const task = data.items[i].task;
         title.innerHTML = task;
 
         const checkbox = createCheckbox(check);
+        const button = createButton(del_button);
+        index_count += 1;
 
         if (data.items[i].completed) {
             checkbox.checked = true;
@@ -182,6 +215,7 @@ function printData(data, table) {
         }
 
         checkbox.addEventListener("change", () => processChange(task, title, checkbox));
+        button.addEventListener("click", () => deleteItem(row));
     }
 }
 
@@ -206,15 +240,20 @@ document.getElementById("input-note-field").onkeypress = function (e) {
         if (!(note === "" || /^ *$/.test(note))) {
             var table = document.getElementById('todo_table');
             let row = table.insertRow(index_count);
+            row.className = 'item_row';
             let check = row.insertCell(0);
             let title = row.insertCell(1);
+            let del_button = row.insertCell(2);
 
             const task = note;
             title.innerHTML = task;
 
             const checkbox = createCheckbox(check);
+            const button = createButton(del_button);
+            index_count += 1;
 
             checkbox.addEventListener("change", () => processChange(task, title, checkbox));
+            button.addEventListener("click", () => deleteItem(row));
 
         }
         document.getElementById("input-note-field").value = ""; // Delete values from input field
