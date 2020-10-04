@@ -110,12 +110,15 @@ body {
 #todo_table {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     border-spacing: 10px 15px;
+    width: 100%;
 }
 
 #todo_list {
     height: 385px;
     overflow: auto;
 }
+
+/* Checkbox */
 
 .checkbox-label input {
     /* position: absolute; */
@@ -181,6 +184,41 @@ body {
     background-color: transparent;
     border-radius: 0;
     z-index: 1;
+}
+
+/* Button */
+
+.item_row:hover .button-label {
+    opacity: 1;
+}
+
+.button-label input {
+    display: none;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.button-custom {
+    display: inline-block;
+    height: 1rem;
+    width: 1rem;
+    margin: 0 0 4px 4px;
+    background-color: transparent;
+    color: #495057;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.button-label {
+    opacity: 0;
+    display: inline-block;
+    z-index: 1;
+    border-radius: 50%;
+    border: 1px solid #495057;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: 0.2s;
 }
 
 /* Input form */
