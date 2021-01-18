@@ -44,10 +44,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     emptyText: {
+        fontFamily: 'sans-serif-thin',
         textAlign: 'center',
         fontSize: 40,
-        color: 'grey',
-        opacity: 0.5,
+        color: 'black',
+        opacity: 0.6,
     },
     inputView: {
         flex: 1,
