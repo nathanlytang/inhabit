@@ -108,7 +108,7 @@ function TodoView() {
         <>
             <View style={styles.titleView}>
                 <ImageBackground source={require('./beach.png')} style={styles.image}>
-                    <Text style={styles.titleText}>inhabit</Text>
+                    <Text style={styles.titleText}>To Do</Text>
                 </ImageBackground>
             </View>
             <SafeAreaView style={styles.screen}>
@@ -157,7 +157,7 @@ function TodoView() {
                         ListEmptyComponent={
                             <>
                                 <View style={styles.emptyView}>
-                                    <Text style={styles.emptyText}>Nothing to do! Hooray 🎉🎉</Text>
+                                    <Text style={styles.emptyText}>Nothing to do! 🎉</Text>
                                 </View>
                             </>
                         }
