@@ -12,8 +12,10 @@
 
 A simple to-do list desktop application built in HTML/CSS/JS using the Electron framework.
 
-<img src="assets/images/appImage.png" width="500" align="center">
+<img src="assets/images/preview_inhabit_banner.png" style="display: block;" align="center">
 
-### Status: In Progress
+### Usage
 
-    To run: Clone the repository then `npm install` then `npm start`
+* Development: Clone the repository then `npm install` then `npm start`
+* Production: Download the <a href="https://github.com/nathanlytang/inhabit/releases/latest" >latest release</a> from the repository and install.
+
