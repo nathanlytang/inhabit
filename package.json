@@ -28,7 +28,7 @@
         "node-notifier": "^10.0.1"
     },
     "devDependencies": {
-        "electron": "^22.3.24",
+        "electron": "^22.3.25",
         "electron-builder": "^24.2.0",
         "electron-reload": "^1.5.0"
     },
